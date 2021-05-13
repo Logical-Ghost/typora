@@ -1411,6 +1411,37 @@ return 100 的值将保存在preValue
 </html>
 ```
 
+#### find
+
+find() 方法返回通过测试（函数内判断）的数组的第一个元素的值。
+
+find() 方法为数组中的每个元素都调用一次函数执行：
+
+- 当数组中的元素在测试条件时返回 *true* 时, find() 返回符合条件的元素，之后的值不会再调用执行函数。
+- 如果没有符合条件的元素返回 undefined
+
+**注意:** find() 对于空数组，函数是不会执行的。
+
+**注意:** find() 并没有改变数组的原始值。
+
+```javascript
+获取数组中年龄大于 18 的第一个元素
+
+var ages = [3, 10, 18, 20];
+ 
+function checkAdult(age) {
+    return age >= 18;
+}
+ 
+function myFunction() {
+    document.getElementById("demo").innerHTML = ages.find(checkAdult);
+}
+
+//结果   18
+```
+
+
+
 ### v-model表单绑定
 
 #### 使用和原理
@@ -4271,6 +4302,8 @@ Vuex提出使用单一状态树, 什么是单一状态树呢？
 
 总的来说意思就是只有一个new Vuex.Store({}) 对象
 
+将state中的数据传给组件后，如果组件内的值改变，那么state中的值也会跟着改变
+
 ### vuex-getters
 
 与组件中的computerd计算属性的用法类似
@@ -4968,7 +5001,7 @@ Mixin钩子按照传入顺序依次调用，并在调用组件自身的钩子之
 
 ### 购物车页面
 
-#### vuex新知识点
+#### vuex新知识点 getters映射
 
 创建顶部导航时使用的这个知识点
 第一步：在store中写好getters.js
@@ -4980,6 +5013,62 @@ Mixin钩子按照传入顺序依次调用，并在调用组件自身的钩子之
 
 第二种：自定义计算属性的名字
 <img src="./images/项目/105.png" style="zoom:40%;margin-left:0" >
+
+#### 商品列表的展示
+
+第一步：创建cartList.vue子组件
+<img src="./images/项目/106.png" style="zoom:40%;margin-left:0" >
+
+第二步：cratList.vue的子组件cartListItem的创建
+提前添加数据
+<img src="./images/项目/107.png" style="zoom:40%;margin-left:0" >
+
+子组件的创建
+<img src="./images/项目/108.png" style="zoom:40%;margin-left:0" >
+
+第三步：cartListItem.vue下按钮子组件的创建
+<img src="./images/项目/109.png" style="zoom:40%;margin-left:0" >
+
+#### 购物车底部的封装
+
+第一步：写底部的子组件 cartListBottomBar.vue
+<img src="./images/项目/110.png" style="zoom:40%;margin-left:0" >
+
+第二步：在shopcart.vue中进行引入，注册，使用
+
+<img src="./images/项目/111.png" style="zoom:40%;margin-left:0" >
+
+#### 购物车全选按钮的解析
+
+每个按钮都选中时，全选按钮选中
+有一个按钮不选中时，全选按钮不选中
+
+<img src="./images/项目/112.png" style="zoom:40%;margin-left:0" >
+
+全选按钮选中，则每一项都选中
+全选按钮每没选中，则每一项都不选中
+
+第一步：cartListBottomBar.vue 内的全选按钮<img src="./images/项目/113.png" style="zoom:40%;margin-left:0" >
+
+第二步：mutations的添加
+<img src="./images/项目/114.png" style="zoom:40%;margin-left:0" >
+
+#### 购物车弹窗
+
+##### actions映射
+
+**如果你想要知道vuex中代码执行完的话，需要从vuex中返回一个promise，然后进行处理**
+
+第一步：在actions中返回一个promise
+
+<img src="./images/项目/115.png" style="zoom:40%;margin-left:0" >
+
+第二步:在detail.vue中处理promise返回的信息
+
+<img src="./images/项目/116.png" style="zoom:40%;margin-left:0" >
+
+第二步的另一种写法：使用actions的映射，...mapActions
+<img src="./images/项目/117.png" style="zoom:40%;margin-left:0" >
 
 ### 关于ref
 
